@@ -4,14 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kishan sir's birthday is coming!!</title>
+    <title>Happy Birthday Countdown</title>
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/fontsource-playfair-display/4.5.7/index.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontsource-inter/4.5.7/index.min.css">
     <style>
         body {
             font-family: 'Spectral', serif;
-            /* Changed font to Spectral */
             background-color: #f9fafb;
             margin: 0;
             padding: 0;
@@ -34,6 +33,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 2rem;
             text-align: center;
+            box-sizing: border-box;
         }
 
         h1,
@@ -73,16 +73,59 @@
             margin-top: 1rem;
             margin-bottom: 1rem;
             text-align: left;
-            /* Left-align message text */
             max-height: 80vh;
-            /* Limit height for scrolling */
             overflow-y: auto;
-            /* Enable scrolling */
         }
 
         .heart-icon {
             color: #f87171;
             font-size: 2rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .countdown {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .time-value {
+                font-size: 1.5rem;
+                padding: 0.8rem;
+                min-width: 60px;
+            }
+
+            .time-label {
+                font-size: 0.8rem;
+            }
+
+            .birthday-message {
+                max-height: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.5rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .time-value {
+                font-size: 1.2rem;
+                padding: 0.6rem;
+                min-width: 50px;
+            }
+
+            .time-label {
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
@@ -112,7 +155,10 @@
                     <div class="time-value" id="seconds">00</div>
                     <div class="time-label">Seconds</div>
                 </div>
+
             </div>
+            <br>
+            <p><i>Yeah, i am bad at frontend. </i>🥲</p>
         </div>
 
         <!-- Birthday Message Section -->

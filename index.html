@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Countdown</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/fontsource-playfair-display/4.5.7/index.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontsource-inter/4.5.7/index.min.css">
+    <style>
+        body {
+            font-family: 'Spectral', serif;
+            /* Changed font to Spectral */
+            background-color: #f9fafb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        h1,
+        h2 {
+            margin-bottom: 1rem;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .time-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .time-value {
+            font-size: 2rem;
+            font-weight: 600;
+            background: #fff;
+            padding: 1rem;
+            min-width: 80px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .time-label {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        .birthday-message {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            text-align: left;
+            /* Left-align message text */
+            max-height: 80vh;
+            /* Limit height for scrolling */
+            overflow-y: auto;
+            /* Enable scrolling */
+        }
+
+        .heart-icon {
+            color: #f87171;
+            font-size: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Countdown Timer Section -->
+        <div id="countdown-timer">
+            <h2 class="font-playfair">Time Until The Special Moment</h2>
+            <div class="countdown" id="countdown">
+                <div class="time-block">
+                    <div class="time-value" id="days">00</div>
+                    <div class="time-label">Days</div>
+                </div>
+                <span>:</span>
+                <div class="time-block">
+                    <div class="time-value" id="hours">00</div>
+                    <div class="time-label">Hours</div>
+                </div>
+                <span>:</span>
+                <div class="time-block">
+                    <div class="time-value" id="minutes">00</div>
+                    <div class="time-label">Minutes</div>
+                </div>
+                <span>:</span>
+                <div class="time-block">
+                    <div class="time-value" id="seconds">00</div>
+                    <div class="time-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Birthday Message Section -->
+        <div id="birthday-message" class="birthday-message" style="display: none;">
+            <div class="heart-icon">❤️</div>
+            <h1 class="font-playfair">Happy Birthday! 🎉</h1>
+            <p>To someone beyond "manager"... ✨</p>
+            <p>I just wanted to take a moment to share something from the heart. It’s hard to think that it’s not even
+                been a year since we started interacting. In such a short time, you’ve become so much more than just a manager to
+                me—you’ve become a mentor, a guide, and honestly, someone I truly look up to. 🙌</p>
+            <p>You have this incredible way of making people feel heard and valued. It’s not just about work with you;
+                it’s about growth, learning, and connection. You’ve shown me what true leadership looks like—someone who
+                doesn’t just lead from the front but walks beside you through it all. 🌟</p>
+            <p>Our bond is something I truly cherish. Whether it’s those moments where we brainstorm ideas, laugh over
+                something random, or you just sharing our experiences, I’ve learned so much from you. You’ve taught me
+                to see things differently, to think bigger, and most importantly, to believe in myself. 💪</p>
+            <p>Thank you for being so patient, supportive, and inspiring. It’s rare to meet someone who cares as much
+                about people as they do about results, and you balance both so effortlessly. You don’t just make work
+                feel meaningful—you make it enjoyable. 😊</p>
+            <p>I feel incredibly lucky to have crossed paths with you. Thank you for everything you’ve done and continue
+                to do—not just as a manager but as someone who genuinely cares. I’m so grateful for the bond we’ve
+                built, and I’m excited to keep learning and growing under your guidance.</p>
+            <p>Warmly,<br> Lakshay<br><b><i>Generative AI Engineer @ GAIT Global</i></b> - <i>Thanks for this title too 😀</i></p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        const targetDate = new Date('2024-12-21T00:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance <= 0) {
+                document.getElementById('countdown-timer').style.display = 'none';
+                document.getElementById('birthday-message').style.display = 'block';
+                triggerFireworks();
+                clearInterval(timerInterval);
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        function triggerFireworks() {
+            const duration = 10 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0, colors: ['#22d3ee', '#818cf8', '#c084fc', '#e879f9'] };
+
+            const randomInRange = (min, max) => Math.random() * (max - min) + min;
+
+            const interval = setInterval(() => {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                const particleCount = 50 * (timeLeft / duration);
+
+                confetti({
+                    ...defaults,
+                    particleCount,
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+                });
+                confetti({
+                    ...defaults,
+                    particleCount,
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+                });
+            }, 250);
+        }
+
+        const timerInterval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+
+</html>
